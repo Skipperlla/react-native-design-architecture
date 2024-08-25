@@ -8,6 +8,11 @@ This project is a React Native boilerplate with some extra features pre-configur
   - [Index](#index)
   - [Environment Variables](#environment-variables)
   - [Folder Structure](#folder-structure)
+  - [Firebase Configuration](#firebase-configuration)
+      - [Android](#android)
+      - [iOS](#ios)
+  - [Features](#features)
+      - [Navigation](#navigation)
 
 ## Environment Variables
 
@@ -51,6 +56,7 @@ List of the variables:
 Explanation of the folders:
 
 - `__tests__`: This folder is for tests. For React Native, we recommend using [Maestro](https://maestro.mobile.dev) as it simplifies UI testing and makes it easier to automate and validate user interactions.
+- `credentials`: This folder is for the credentials of the app. Boilerplate is using this folder for the credentials that are used in the whole app. You can find more examples in the `credentials` folder.
 - `src`: This folder is for the source code of the app.
   - `assets`: This folder is for the assets of the app. Generally, boilerplate is using this folder for images, locale files, and other types of assets.
     - `images`: This folder is for the images of the app. Boilerplate is using this folder for the images that are used in the whole app. You can import them from the `@app/assets/images` folder.
@@ -68,3 +74,54 @@ Explanation of the folders:
   - `types`: This folder is for TypeScript types used throughout the app. Boilerplate uses this folder to define and organize TypeScript types, ensuring that types are consistent and easy to maintain. Types should be organized by feature or module and can be imported from the `@app/types` folder.
   - `utils`: This folder is for utility functions used in the app. Boilerplate uses this folder for functions that provide common functionality and are used across multiple files. Utility functions should be organized logically within this folder and can be imported from the `@app/utils` folder.
 - `App.tsx`: This file is the main file of the app. Boilerplate is using this file for configuring the app and context providers. You can find more examples in the `src/App.tsx` file.
+
+## Firebase Configuration
+
+Boilerplate use the [React Native Firebase](https://rnfirebase.io/) package for Firebase. To use it, you need to add your Firebase configuration.
+
+#### Android
+
+You need to replace your `google-services.json` file inside the `credentials` folder.
+
+#### iOS
+
+You need to replace your `GoogleService-Info.plist` file inside the `credentials` folder.
+
+## Features
+
+1. [Navigation](#navigation)
+
+---
+
+#### Navigation
+
+React Navigation allows you to navigate between screens in your app. In this example, a navigation reference is created using `createNavigationContainerRef`, and this reference is used to navigate between screens.
+
+**1.Updating PAGES file**
+
+every time a new page is added, it should be added to `src/constants/pages` and called that everywhere
+
+**2.Usage Example**
+
+```typescript
+import { useAppNavigation } from "@app/hooks";
+
+const navigation = useAppNavigation();
+navigation.navigate(PAGES.EDITOR);
+```
+
+In this example, the user is navigated to the `PAGES.EDITOR` screen with the `imageUrl` and `id` parameters.
+
+**3.Updating RootStackParamList**
+
+Whenever you add a new screen, make sure to update the `RootStackParamList` with the appropriate key and value types for that screen. This ensures type safety in navigation operations.
+
+```typescript
+type RootStackParamList = {
+  [PAGE_NAME]: PAGE_PARAMS;
+  //* Example
+  [PAGES.EDITOR]: undefined | { imageUri: string };
+};
+```
+
+> The name of the page should be given as `key` for `value`, if the page takes parameters, the parameters should be entered, if it does not take any parameters, undefined can be given.
