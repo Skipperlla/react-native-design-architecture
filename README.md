@@ -16,6 +16,8 @@ This project is a React Native boilerplate with some extra features pre-configur
       - [Push Notifications](#push-notifications)
       - [Authentication Structure](#authentication-structure)
       - [Internationalization](#internationalization)
+      - [Analytics](#analytics)
+      - [Crashlytics](#crashlytics)
 
 ## Environment Variables
 
@@ -192,5 +194,21 @@ And we have a couple of key groups for components. These groups are:
 **2. Using the localization in components**
 
 You can use localization in components with the `useTranslation` hook. This hook has a function `t` and this function is to get the localized text. And this function has three parameters. The first one is the `key` of the text, the second one is the `scope` of the text and the last one is `options` and this parameter usually has scope and variables. You can find an example in `src/screens/Login/index.tsx`.
+
+---
+
+#### Analytics
+
+Boilerplate uses the [Firebase Analytics](https://rnfirebase.io/analytics/usage) service for analytics. In `src/App.tsx` we added a flow to track screen changes.
+
+The React Native Firebase package is also predefined for the project. To use Firebase you need to configure it. You can find instructions in [Firebase Configuration](#firebase-configuration).
+
+---
+
+#### Crashlytics
+
+Boilerplate uses the Firebase Crashlytics service for tracking the crashes. It is default initialized you don't need to do anything for using it. Boilerplate is also sending user data with crash reports. Logged in user defining an in the `src/components/Initializing.tsx` file. You can be needed to change the user data for your project.
+
+React Native Firebase package is also predefined for the project. To use Firebase, you need the configure it. You can find instructions in the Firebase Configuration section.
 
 ---
