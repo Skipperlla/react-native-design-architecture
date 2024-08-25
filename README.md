@@ -8,6 +8,7 @@ This project is a React Native boilerplate with some extra features pre-configur
   - [Index](#index)
   - [Environment Variables](#environment-variables)
   - [Folder Structure](#folder-structure)
+  - [EAS Configuration](#eas-configuration)
   - [Firebase Configuration](#firebase-configuration)
       - [Android](#android)
       - [iOS](#ios)
@@ -41,6 +42,20 @@ This project is a React Native boilerplate with some extra features pre-configur
         - [**Code Formatting**](#code-formatting)
         - [**Building for iOS and Android**](#building-for-ios-and-android)
         - [**Cleaning and Deployment**](#cleaning-and-deployment)
+        - [**Testing with Maestro**](#testing-with-maestro)
+      - [Custom Bottom Sheet with @gorhom/bottom-sheet](#custom-bottom-sheet-with-gorhombottom-sheet)
+        - [Overview](#overview)
+        - [`OptionsPortal`](#optionsportal)
+        - [`present(id: string)`](#presentid-string)
+        - [`dismiss()`](#dismiss)
+        - [`PORTAL_ID`](#portal_id)
+        - [Example Usage](#example-usage-1)
+      - [Maestro End-to-End Testing](#maestro-end-to-end-testing)
+      - [Third-Party Libraries and Dependencies](#third-party-libraries-and-dependencies)
+        - [**1. Pre-commit and Commit Message Checks**](#1-pre-commit-and-commit-message-checks)
+        - [**2. Commitlint and Prettier Settings**](#2-commitlint-and-prettier-settings)
+        - [**3. ESLint Configuration**](#3-eslint-configuration)
+        - [**4. EditorConfig Settings**](#4-editorconfig-settings)
 
 ## Environment Variables
 
@@ -103,6 +118,10 @@ Explanation of the folders:
   - `utils`: This folder is for utility functions used in the app. Boilerplate uses this folder for functions that provide common functionality and are used across multiple files. Utility functions should be organized logically within this folder and can be imported from the `@app/utils` folder.
 - `App.tsx`: This file is the main file of the app. Boilerplate is using this file for configuring the app and context providers. You can find more examples in the `src/App.tsx` file.
 
+## EAS Configuration
+
+Before running the application for the first time, remember to configure your project with EAS using the **`eas build:configure`** command. This step is necessary for your application to run correctly on the EAS platform.
+
 ## Firebase Configuration
 
 Boilerplate use the [React Native Firebase](https://rnfirebase.io/) package for Firebase. To use it, you need to add your Firebase configuration.
@@ -128,7 +147,7 @@ every time a new page is added, it should be added to `src/constants/pages` and 
 **2.Usage Example**
 
 ```typescript
-import { useAppNavigation } from "@app/hooks";
+import { useAppNavigation } from '@app/hooks';
 
 const navigation = useAppNavigation();
 navigation.navigate(PAGES.EDITOR);
@@ -302,8 +321,8 @@ Example Usage:
 
 ```tsx
 const logEvent = useAnalytics(screenName);
-logEvent("Created_Artwork", "create", "Artwork", {
-  style: "Background Remover",
+logEvent('Created_Artwork', 'create', 'Artwork', {
+  style: 'Background Remover',
 });
 ```
 
@@ -326,16 +345,16 @@ The hook accepts a **`settings`** object with optional callback functions that a
 Here’s how you might use this hook in a component to track app state transitions:
 
 ```tsx
-import React from "react";
-import { View } from "react-native";
+import React from 'react';
+import { View } from 'react-native';
 
-import { useAppState } from "@app/hooks";
+import { useAppState } from '@app/hooks';
 
 const AppStatusComponent = () => {
   const appState = useAppState({
-    onForeground: () => console.log("App has come to the foreground"),
-    onBackground: () => console.log("App has gone to the background"),
-    onChange: (state) => console.log("App State changed to", state),
+    onForeground: () => console.log('App has come to the foreground'),
+    onBackground: () => console.log('App has gone to the background'),
+    onChange: (state) => console.log('App State changed to', state),
   });
 
   return <View></View>;
@@ -366,7 +385,7 @@ This ensures all your icons are properly managed and organized.
 To integrate an icon into your app, use the following method:
 
 ```tsx
-import { Icon } from "@app/components";
+import { Icon } from '@app/components';
 
 const Index = () => {
   return <Icon icon="image_outline" size={24} color="red" />;
@@ -509,3 +528,136 @@ export default function SettingsScreen() {
 
 - **submit:android**: `eas submit -p android`
   - Submits the Android build to the Google Play Store.
+
+##### **Testing with Maestro**
+
+- **test:e2e**: `maestro test ./path`
+  - Runs end-to-end tests using Maestro.
+
+---
+
+#### Custom Bottom Sheet with @gorhom/bottom-sheet
+
+##### Overview
+
+This document provides a brief explanation of the `OptionsModal` component and its usage in a React Native application. The example demonstrates how to use the `present` and `dismiss` functions to control the visibility of a modal, which is associated with an `OptionsPortal`.
+
+##### `OptionsPortal`
+
+`OptionsPortal` is a component that serves as a container for rendering the modal content. It links the modal's UI to a specific ID, enabling it to be controlled via `present` and `dismiss` functions.
+
+##### `present(id: string)`
+
+The `present` function is used to display the modal. It takes an `id` as an argument, which corresponds to the ID of the `OptionsPortal`. This ID ensures that the correct modal is presented when multiple modals are used in an application.
+
+##### `dismiss()`
+
+The `dismiss` function hides the currently presented modal. It can be called without any arguments as it will automatically close the modal that is currently open.
+
+##### `PORTAL_ID`
+
+`PORTAL_ID` is a constant string that uniquely identifies the `OptionsPortal` instance. It links the `present` and `dismiss` functions to the specific modal that needs to be controlled.
+
+##### Example Usage
+
+```typescript
+const { dismiss, present } = useOptionsModal();
+const PORTAL_ID = 'BackgroundRemoverImagePicker';
+
+const App = () => {
+  return (
+    <>
+      <TouchableOpacity
+        onPress={() => {
+          present(PORTAL_ID);
+        }}
+      >
+        <Text>Open</Text>
+      </TouchableOpacity>
+      <TouchableOpacity onPress={dismiss}>
+        <Text>Close</Text>
+      </TouchableOpacity>
+      <OptionsPortal id={PORTAL_ID}>
+        <View />
+      </OptionsPortal>
+    </>
+  );
+};
+```
+
+---
+
+#### Maestro End-to-End Testing
+
+You can E2E test your app with [Maestro](https://maestro.mobile.dev/)
+
+We have a sample Login test in `__tests__/.maestro/login/Login.yaml`
+
+First need to edit the `.env` file on the root of the project and use your maestro env values with `MAESTRO_` prefix, you can follow the `.env.example` file
+
+Whenever you add a new e2e test category, you have to add that subfolder to `__tests__/.maestro/config.yaml` file as follows.
+
+```
+flows:
+  - 'login/*'
+  - 'YOUR_NEW_SCREEN/*'
+```
+
+Then you can add your E2E test flows to `__tests__/.maestro/YOUR_NEW_SCREEN` folder.
+
+Then, you can run your login flow test with `yarn test:e2e` command.
+
+---
+
+#### Third-Party Libraries and Dependencies
+
+##### **1. Pre-commit and Commit Message Checks**
+
+This configuration defines the commands to run during the `pre-commit` and `commit-msg` stages:
+
+- **Pre-commit:**
+
+  - **Lint Checks:** Runs `eslint` on files with extensions `*.js, *.ts, *.jsx, *.tsx` to ensure code quality.
+  - **Type Checks:** Runs `tsc --noEmit` on TypeScript files to check for type errors.
+
+- **Commit Message Checks:**
+  - **Commitlint:** Ensures commit messages follow a specific convention using `npx commitlint --edit`.
+
+##### **2. Commitlint and Prettier Settings**
+
+- **Commitlint:**
+
+  - Ensures that commit messages conform to the [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) standard.
+
+- **Prettier:**
+  - A code formatting tool that enforces the following rules:
+    - **Quote Style:** Uses single quotes.
+    - **Tab Width:** Tabs are set to 2 spaces wide.
+    - **Trailing Comma:** Adds a trailing comma after the last element.
+    - **Arrow Function Parentheses:** Always uses parentheses around arrow function parameters.
+    - **End of Line:** Automatically determined.
+    - **Semicolons:** Always uses semicolons.
+    - **Bracket Spacing:** Spaces are added between brackets.
+    - **JSX Brackets:** The closing bracket of JSX elements is not placed on the same line as the last prop.
+
+##### **3. ESLint Configuration**
+
+ESLint is a tool for ensuring that your JavaScript and TypeScript code adheres to certain rules. This configuration is based on `@callstack` standards:
+
+- **Environment Settings:** Supports ES2022 and Node.js environments.
+- **Custom Rules:**
+  - Disables inline styles.
+  - Adjusts various settings for React and import statements.
+  - Supports JSX and TSX file extensions.
+  - Alphabetizes import order and customizes specific import groups.
+
+##### **4. EditorConfig Settings**
+
+EditorConfig helps maintain consistent coding styles across different editors and IDEs:
+
+- **Indent Style:** Uses spaces.
+- **Indent Size:** Set to 2 spaces.
+- **End of Line Character:** Uses `lf` (Line Feed).
+- **Character Set:** `utf-8`.
+- **Trim Trailing Whitespace:** Removes unnecessary whitespace at the end of lines.
+- **Insert Final Newline:** Ensures a newline is added at the end of the file.
