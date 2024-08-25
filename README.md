@@ -56,6 +56,9 @@ This project is a React Native boilerplate with some extra features pre-configur
         - [**2. Commitlint and Prettier Settings**](#2-commitlint-and-prettier-settings)
         - [**3. ESLint Configuration**](#3-eslint-configuration)
         - [**4. EditorConfig Settings**](#4-editorconfig-settings)
+  - [Why Choose MMKV for Key/Value Storage in React Native?](#why-choose-mmkv-for-keyvalue-storage-in-react-native)
+    - [Performance Benchmark](#performance-benchmark)
+    - [Key Advantages of MMKV](#key-advantages-of-mmkv)
 
 ## Environment Variables
 
@@ -661,3 +664,25 @@ EditorConfig helps maintain consistent coding styles across different editors an
 - **Character Set:** `utf-8`.
 - **Trim Trailing Whitespace:** Removes unnecessary whitespace at the end of lines.
 - **Insert Final Newline:** Ensures a newline is added at the end of the file.
+
+---
+
+## Why Choose MMKV for Key/Value Storage in React Native?
+
+When selecting a key/value storage solution for React Native, performance is a crucial factor. MMKV stands out as an excellent choice due to its speed and efficiency, especially when compared to other popular storage solutions.
+
+### Performance Benchmark
+
+The image below illustrates a benchmark that measures the time it takes to read a value from storage 1000 times across various storage libraries in React Native:
+
+![React Native Storage Benchmark](https://github.com/mrousavy/StorageBenchmark/blob/main/img/graph.png?raw=true)
+
+As demonstrated, MMKV significantly outperforms other storage libraries, including AsyncStorage, SQLite, and RealmDB. This performance advantage makes MMKV an ideal choice for applications that require fast data access and smooth user experiences.
+
+### Key Advantages of MMKV
+
+- **Speed**: MMKV is optimized for performance, allowing for lightning-fast read and write operations. This is particularly important for apps with high data throughput requirements.
+- **Efficiency**: MMKV is memory-efficient, which helps in reducing the app's overall memory footprint while maintaining high-speed access to stored data.
+- **Reliability**: Built on top of Facebook's MMKV library, it has been battle-tested in production environments, ensuring reliability and robustness.
+
+Given these advantages, MMKV is highly recommended for React Native projects that prioritize performance and efficiency in their data storage strategy.
