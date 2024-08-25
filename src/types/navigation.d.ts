@@ -1,4 +1,4 @@
-import { PAGES } from "@app/constants";
+import { PAGES } from '@app/constants';
 
 type RootStackParamList = {
   //* Bottom Tab's

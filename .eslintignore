@@ -1,0 +1,68 @@
+# Node modules
+node_modules/
+!.*.js
+
+*.js
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+
+# Dependency directories
+jspm_packages/
+bower_components/
+
+# Testing
+coverage/
+*.lcov
+.nyc_output/
+
+# Build directories
+build/
+dist/
+tmp/
+temp/
+cache/
+out/
+output/
+compiled/
+lib/
+es/
+tsconfig.build.tsbuildinfo
+
+# Expo directories
+.expo/
+.expo-shared/
+
+# React Native build directories
+ios/
+android/
+
+# Metro bundler
+.expo/
+.expo-shared/
+.expo-source/
+.haul/
+.rncache/
+
+# Buck build system
+buck-out/
+\.buckd/
+
+# MacOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Other
+.idea/
+.vscode/
+.history/
+coverage/
+flow-typed/
+fastlane/report.xml
+.

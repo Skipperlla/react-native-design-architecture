@@ -1,7 +1,7 @@
-import { create } from "zustand";
-import { createJSONStorage, persist } from "zustand/middleware";
+import { create } from 'zustand';
+import { createJSONStorage, persist } from 'zustand/middleware';
 
-import mmkvStorage from "./mmkv";
+import mmkvStorage from './mmkv';
 
 type UserType = {
   id: string;
@@ -30,10 +30,10 @@ const useAuthStore = create<State & Actions>()(
         set((state) => ({ ...state, user: {} as UserType, isLoggedIn: false })),
     }),
     {
-      name: "auth-storage",
+      name: 'auth-storage',
       storage: createJSONStorage(() => mmkvStorage),
-    }
-  )
+    },
+  ),
 );
 
 export default useAuthStore;

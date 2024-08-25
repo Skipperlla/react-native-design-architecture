@@ -18,6 +18,29 @@ This project is a React Native boilerplate with some extra features pre-configur
       - [Internationalization](#internationalization)
       - [Analytics](#analytics)
       - [Crashlytics](#crashlytics)
+      - [Force Update Mechanism](#force-update-mechanism)
+      - [Adding a New Font](#adding-a-new-font)
+      - [Splash Screen Customizations](#splash-screen-customizations)
+      - [Remote Configuration](#remote-configuration)
+      - [On The Fly Update](#on-the-fly-update)
+      - [useAnalytics](#useanalytics)
+      - [useAppState](#useappstate)
+        - [**Parameters**](#parameters)
+        - [**Example Usage**](#example-usage)
+      - [**Using Icons in Your App with SVGR**](#using-icons-in-your-app-with-svgr)
+        - [**Prepare Your Icons**](#prepare-your-icons)
+        - [**Usage Example**](#usage-example)
+      - [Deep Linking](#deep-linking)
+        - [**Testing deep links**](#testing-deep-links)
+      - [Theming and Localization](#theming-and-localization)
+        - [**Dynamic Theming**](#dynamic-theming)
+        - [**Localization**](#localization)
+        - [**Example: Manually Changing Theme and Language**](#example-manually-changing-theme-and-language)
+      - [Understanding package.json scripts](#understanding-packagejson-scripts)
+        - [**Linting and Type Checking**](#linting-and-type-checking)
+        - [**Code Formatting**](#code-formatting)
+        - [**Building for iOS and Android**](#building-for-ios-and-android)
+        - [**Cleaning and Deployment**](#cleaning-and-deployment)
 
 ## Environment Variables
 
@@ -66,7 +89,7 @@ Explanation of the folders:
   - `assets`: This folder is for the assets of the app. Generally, boilerplate is using this folder for images, locale files, and other types of assets.
     - `images`: This folder is for the images of the app. Boilerplate is using this folder for the images that are used in the whole app. You can import them from the `@app/assets/images` folder.
     - `fonts`: This folder is for the fonts of the app. Boilerplate is using this folder for the fonts that are used in the whole app. You can import them from the `@app/assets/fonts` folder.
-  - `components`: This folder is for the components of the app. Boilerplate is using this folder for the components that are used in the whole app. For using the components, export them in the `src/components/index.ts` file and then you can import them from the `@app/components` folder. Boilerplate has export rules for the components, it explains in the [Our Export Rule](#our-export-rule) section.
+  - `components`: This folder is for the components of the app. Boilerplate is using this folder for the components that are used in the whole app. For using the components, export them in the `src/components/index.ts` file and then you can import them from the `@app/components` folder.
   - `constants`: This folder is for the constants of the app. Boilerplate is using this folder for the constants that are used in the whole app. When constant using by more than one file, you need to create a file for the constant in this folder. Constants are exporting in the object format. And names and keys of the constants are in the `PascalCase` format. And should be export in the `src/constant/index.ts` file. You can import them from the `@app/constants` folder.
   - `context`:This folder is for managing global state using the React Context API. Boilerplate uses this folder to store and manage context providers that handle global state across the app. You can create different context files for various state management needs. You can import them from the `@app/context` folder.
   - `hooks`: This folder is for the hooks of the app. Boilerplate is using this folder for custom hooks. Hooks are have to be in the `use` prefix. And should be export in the `src/hooks/index.ts` file. You can import them from the `@app/hooks` folder.
@@ -93,10 +116,6 @@ You need to replace your `google-services.json` file inside the `credentials` fo
 You need to replace your `GoogleService-Info.plist` file inside the `credentials` folder.
 
 ## Features
-
-1. [Navigation](#navigation)
-
----
 
 #### Navigation
 
@@ -212,3 +231,281 @@ Boilerplate uses the Firebase Crashlytics service for tracking the crashes. It i
 React Native Firebase package is also predefined for the project. To use Firebase, you need the configure it. You can find instructions in the Firebase Configuration section.
 
 ---
+
+#### Force Update Mechanism
+
+Force update is an important part of the boilerplate. Because most users don't update their apps besides, apps generally crash when changing API or don't use new features. So we need to force update feature for our apps.
+
+So, boilerplate has `useControlAppVersion.ts` hook for this. This hook compares the app version and minimum app version provided by [Firebase Remote Config](https://rnfirebase.io/remote-config/usage). If the app version is smaller than Remote Config version, the app shows a native alert to the user. This modal only has one button. This button redirects the user to the app's store page. Store page URL is provided in `.env` file with `APP_STORE_URL` and `PLAY_STORE_URL` variables.
+
+This hook is working when the app is opening every time.
+
+---
+
+#### Adding a New Font
+
+If you want to add a new font to your application, the steps are quite simple:
+
+1. Add the font file to the `src/assets/fonts` directory.
+2. Add the name of the newly added font to the `useFonts` function in `App.tsx`. For example:
+   ```typescript
+   "Urbanist-Bold": require("@app/assets/fonts/Urbanist-Bold.ttf")
+   ```
+3. After that, you don't need to do anything extra.
+
+---
+
+#### Splash Screen Customizations
+
+If you want to change the splash screen's color, `resizeMode`, or `backgroundColor`, you can do this through the `app.json` file.
+
+**1. Modifying Splash Screen Properties**
+
+1. Open the `app.json` file.
+2. Adjust the properties under the `splash` object according to your needs.
+
+**2. For More Information**
+
+If you want to learn more about splash screen customization, you can use the following links:
+
+- [Expo Splash Screen](https://docs.expo.dev/versions/latest/config/app/#splash)
+- [Android Splash Screen](https://docs.expo.dev/versions/latest/config/app/#splash-2)
+- [iOS Splash Screen](https://docs.expo.dev/versions/latest/config/app/#splash-1)
+
+---
+
+#### Remote Configuration
+
+You can change some variables in the app with [Firebase Remote Config](https://rnfirebase.io/remote-config/usage). Boilerplate has a predefined `useRemoteConfig.ts` hook for this. You can find the variables in the `src/constants/remoteConfigKeys.ts` file. You can change the variables in this file.
+
+---
+
+#### On The Fly Update
+
+This is the most important feature of the boilerplate. Because sometimes we need to send an immediate update to the app. But store updates mostly take a minimum one day. We are using this feature for updating the app without publishing the app to the store. We are using [Expo Updates](https://docs.expo.dev/versions/latest/sdk/updates/) package for this.
+
+> Please remember to update the `username` under the `expo-updates` section in the `app.json` file with your organization's username.
+
+---
+
+#### useAnalytics
+
+This **`logEvent`** function is purposed to log an event to Firebase Analytics. It takes three parameters:
+
+- **`screenName`**: This specifies the name of the screen where the event is logged.
+- **`elementName`**: This specifies the name of the relevant element in the UI (e.g., a button, a link, etc.)
+- **`action`**: This specifies the action taken (e.g., click, view).
+- **`elementType`**: This specifies the type of the UI element (e.g., button, image).
+- **`options`**: This specifies the options for the event (e.g., the user's ID).
+
+Example Usage:
+
+```tsx
+const logEvent = useAnalytics(screenName);
+logEvent("Created_Artwork", "create", "Artwork", {
+  style: "Background Remover",
+});
+```
+
+---
+
+#### useAppState
+
+This **`useAppState`** hook is designed to track the current state of the application (active, inactive, or background) in a React Native application. The hook allows you to execute specific functions when the app state changes, making it particularly useful for performing actions or cleanup when the app goes to the background or comes to the foreground.
+
+##### **Parameters**
+
+The hook accepts a **`settings`** object with optional callback functions that are executed based on the app state transitions:
+
+- **`onChange`**: Called whenever the app state changes, with the new state as a parameter.
+- **`onForeground`**: Called when the app transitions to the foreground (active state).
+- **`onBackground`**: Called when the app transitions to the background.
+
+##### **Example Usage**
+
+Here’s how you might use this hook in a component to track app state transitions:
+
+```tsx
+import React from "react";
+import { View } from "react-native";
+
+import { useAppState } from "@app/hooks";
+
+const AppStatusComponent = () => {
+  const appState = useAppState({
+    onForeground: () => console.log("App has come to the foreground"),
+    onBackground: () => console.log("App has gone to the background"),
+    onChange: (state) => console.log("App State changed to", state),
+  });
+
+  return <View></View>;
+};
+
+export default AppStatusComponent;
+```
+
+In this example, the **`useAppState`** hook is used with custom callbacks to log the state transitions to the console. The current app state is also displayed on the screen using a **`Text`** component.
+
+---
+
+#### **Using Icons in Your App with SVGR**
+
+##### **Prepare Your Icons**
+
+To add new SVGs to your project, follow these steps:
+
+1. Visit the [SVGPS collection page](https://svgps.app/collection).
+2. Drag and drop the SVGs you want to add into the collection area.
+3. Export the collection as a JSON file.
+4. Add the exported JSON file to your project in the `assets/icons.json` directory.
+
+This ensures all your icons are properly managed and organized.
+
+##### **Usage Example**
+
+To integrate an icon into your app, use the following method:
+
+```tsx
+import { Icon } from "@app/components";
+
+const Index = () => {
+  return <Icon icon="image_outline" size={24} color="red" />;
+};
+
+export default Index;
+```
+
+---
+
+#### Deep Linking
+
+First, you will want to specify a URL scheme for your app. This corresponds to the string before :// in a URL, so if your scheme is mychat then a link to your app would be mychat://. You can register for a scheme in your app.json by adding a string under the scheme key:
+
+- Add this change in `app.json`
+
+```json
+{
+  "expo": {
+    "scheme": "mychat"
+  }
+}
+```
+
+##### **Testing deep links**
+
+> npx uri-scheme open [your deep link] --[ios|android]
+
+For example, if you want to test the deep link `mychat://chat/123`, you would run:
+
+**IOS**
+
+```bash
+npx uri-scheme open mychat://chat/123 --ios
+```
+
+**Android**
+
+```bash
+npx uri-scheme open mychat://chat/123 --android
+```
+
+---
+
+#### Theming and Localization
+
+##### **Dynamic Theming**
+
+By default, the application’s theme is set based on the system’s current color scheme (dark or light). The `isDarkMode` and `defaultTheme` states in `useAppStore` are initialized using `Appearance.getColorScheme()` to reflect this.
+
+However, if you want users to manually select their preferred theme (e.g., dark or light), you can use the `setTheme` function provided by `useAppStore`. This allows you to override the automatic theme setting and apply the user's choice.
+
+##### **Localization**
+
+Similarly, you can manage localization by allowing users to select their preferred language through the `setLanguage` function from `useAppStore`. This function enables dynamic changes to the app's language based on user input.
+
+##### **Example: Manually Changing Theme and Language**
+
+Here’s an example that demonstrates how you can use both `setTheme` and `setLanguage` in your application:
+
+```typescript
+import { Button, View } from "react-native";
+import { useAppStore } from "@app/store";
+
+export default function SettingsScreen() {
+  const { setTheme, setLanguage } = useAppStore();
+
+  return (
+    <View>
+      <Button title="Switch to Dark Mode" onPress={() => setTheme("dark")} />
+      <Button title="Switch to Light Mode" onPress={() => setTheme("light")} />
+      <Button title="Switch to English" onPress={() => setLanguage("en")} />
+      <Button title="Switch to Spanish" onPress={() => setLanguage("es")} />
+    </View>
+  );
+}
+```
+
+---
+
+#### Understanding package.json scripts
+
+##### **Linting and Type Checking**
+
+- **check:lint**: `eslint .`
+
+  - Runs the linter across all files in the project to check for code style and formatting issues.
+
+- **check:types**: `tsc --noEmit`
+
+  - Checks for type errors in TypeScript files without emitting any compiled output.
+
+- **check**: `npm run check:lint && npm run check:types`
+  - Runs both the `check:lint` and `check:types` scripts to ensure the code passes both linting and type checking.
+
+##### **Code Formatting**
+
+- **lint**: `eslint --fix`
+
+  - Automatically fixes linting errors in the code.
+
+- **prettier**: `prettier --write`
+  - Formats the project's files using Prettier, ensuring they conform to the project's code style.
+
+##### **Building for iOS and Android**
+
+- **build:dev:ios**: `eas build --platform ios --profile development --non-interactive --local`
+
+  - Builds the iOS app locally using the development profile.
+
+- **build:prod:ios**: `eas build --platform ios --profile production --non-interactive --local`
+
+  - Builds the iOS app locally using the production profile.
+
+- **build:dev:android**: `eas build -p android --profile development --non-interactive --local`
+
+  - Builds the Android app locally using the development profile.
+
+- **build:prod:android**: `eas build -p android --profile production --non-interactive --local`
+
+  - Builds the Android app locally using the production profile.
+
+- **build:dev:both**: `yarn build:dev:ios && yarn build:dev:android`
+
+  - Builds both iOS and Android apps locally using the development profiles.
+
+- **build:prod:both**: `yarn build:prod:ios && yarn build:prod:android`
+  - Builds both iOS and Android apps locally using the production profiles.
+
+##### **Cleaning and Deployment**
+
+- **clean:folders**: `rm -rf android ios`
+
+  - Deletes the `android` and `ios` folders, typically used before rebuilding or resetting the project.
+
+- **submit:ios**: `eas submit -p ios`
+
+  - Submits the iOS build to the App Store.
+  - Please remember to fill in the required credentials under the `submit > production > ios` section in the eas.json file.
+
+- **submit:android**: `eas submit -p android`
+  - Submits the Android build to the Google Play Store.

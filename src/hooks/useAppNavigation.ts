@@ -1,6 +1,6 @@
-import { createNavigationContainerRef } from "@react-navigation/native";
+import { createNavigationContainerRef } from '@react-navigation/native';
 
-import type { RootStackParamList } from "@app/types/navigation";
+import type { RootStackParamList } from '@app/types/navigation';
 
 export const navigationRef = createNavigationContainerRef<RootStackParamList>();
 

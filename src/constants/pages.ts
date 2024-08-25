@@ -1,9 +1,9 @@
 enum Pages {
   //* Bottom Tab
-  BOTTOM_TAB = "BottomTab",
-  PROFILE = "Profile",
+  BOTTOM_TAB = 'BottomTab',
+  PROFILE = 'Profile',
   //* Stack Screen's
-  HOME = "Home",
+  HOME = 'Home',
 }
 
 export default Pages;

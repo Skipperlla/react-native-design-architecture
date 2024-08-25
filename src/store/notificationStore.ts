@@ -1,8 +1,8 @@
-import * as Notifications from "expo-notifications";
-import { create } from "zustand";
-import { createJSONStorage, persist } from "zustand/middleware";
+import * as Notifications from 'expo-notifications';
+import { create } from 'zustand';
+import { createJSONStorage, persist } from 'zustand/middleware';
 
-import mmkvStorage from "./mmkv";
+import mmkvStorage from './mmkv';
 
 type State = {
   expoPushToken?: Notifications.ExpoPushToken;
@@ -28,10 +28,10 @@ const useNotificationStore = create<State & Actions>()(
         }),
     }),
     {
-      name: "notification",
+      name: 'notification',
       storage: createJSONStorage(() => mmkvStorage),
-    }
-  )
+    },
+  ),
 );
 
 export default useNotificationStore;
