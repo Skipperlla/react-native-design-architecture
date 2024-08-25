@@ -3,9 +3,11 @@
 This project is a React Native boilerplate with some extra features pre-configured. It also uses [TypeScript](https://www.typescriptlang.org/) as the primary language. Added features that are useful for most of the projects
 
 ## Index
+
 - [React Native Design Architecture Boilerplate](#react-native-design-architecture-boilerplate)
   - [Index](#index)
   - [Environment Variables](#environment-variables)
+  - [Folder Structure](#folder-structure)
 
 ## Environment Variables
 
@@ -20,3 +22,49 @@ List of the variables:
 - `APP_STORE_URL`: The URL of the app in the App Store. It is used in the `useControlAppVersion` hook. This is a required variable.
 
 - `PLAY_STORE_URL`: The URL of the app in the Play Store. It is used in the `useControlAppVersion` hook. This is a required variable.
+
+## Folder Structure
+
+```
+├── __tests__/
+├── android/
+├── ios/
+├── src/
+│   ├── api/
+│   ├── assets/
+│   │   ├── images/
+│   │   ├── fonts/
+│   ├── components/
+│   ├── constants/
+│   ├── context/
+│   ├── hooks/
+│   │   ├── api/
+│   ├── lang/
+│   ├── navigation/
+│   ├── screens/
+│   ├── store/
+│   ├── types/
+│   ├── utils/
+├── App.tsx
+```
+
+Explanation of the folders:
+
+- `__tests__`: This folder is for tests. For React Native, we recommend using [Maestro](https://maestro.mobile.dev) as it simplifies UI testing and makes it easier to automate and validate user interactions.
+- `src`: This folder is for the source code of the app.
+  - `assets`: This folder is for the assets of the app. Generally, boilerplate is using this folder for images, locale files, and other types of assets.
+    - `images`: This folder is for the images of the app. Boilerplate is using this folder for the images that are used in the whole app. You can import them from the `@app/assets/images` folder.
+    - `fonts`: This folder is for the fonts of the app. Boilerplate is using this folder for the fonts that are used in the whole app. You can import them from the `@app/assets/fonts` folder.
+  - `components`: This folder is for the components of the app. Boilerplate is using this folder for the components that are used in the whole app. For using the components, export them in the `src/components/index.ts` file and then you can import them from the `@app/components` folder. Boilerplate has export rules for the components, it explains in the [Our Export Rule](#our-export-rule) section.
+  - `constants`: This folder is for the constants of the app. Boilerplate is using this folder for the constants that are used in the whole app. When constant using by more than one file, you need to create a file for the constant in this folder. Constants are exporting in the object format. And names and keys of the constants are in the `PascalCase` format. And should be export in the `src/constant/index.ts` file. You can import them from the `@app/constants` folder.
+  - `context`:This folder is for managing global state using the React Context API. Boilerplate uses this folder to store and manage context providers that handle global state across the app. You can create different context files for various state management needs. You can import them from the `@app/context` folder.
+  - `hooks`: This folder is for the hooks of the app. Boilerplate is using this folder for custom hooks. Hooks are have to be in the `use` prefix. And should be export in the `src/hooks/index.ts` file. You can import them from the `@app/hooks` folder.
+    - `api`: This folder is for the hooks that are using the API. Boilerplate using hooks for all API calls. And this API hooks using `react-query` package. You can find more examples in the `src/hooks/api` folder. And using examples in the `src/screens/Login/index.tsx` and `src/screens/Home/index.tsx` files.
+  - `lang`: This folder is for managing the language and localization files of the app. Boilerplate uses this folder to store language files and manage localization settings. You can import the language files from the `@app/lang` folder.
+  - `lib`: This folder is for the libraries of the app. Boilerplate is using this folder for the libraries that are used in the whole app. When functions using by more than one file, you need to create a file for the library in this folder. Libraries should be export in the `src/lib/index.ts` file. You can import them from the `@app/lib` folder.
+  - `navigation`: This folder is for the navigation of the app. Boilerplate using [React Navigation](https://reactnavigation.org) for navigating the app. You can find more examples in the `src/navigation` folder.
+  - `screens`: This folder is for the views of the app. This folder has screens of the app. All parts of every screen are combined under this folder and turned proper user interface here. This folder generally has flows, components, and API calls. You can find more examples in the `src/screens` folder.
+  - `store` This folder is for state management and storage in the app. Boilerplate uses [zustand](https://zustand-demo.pmnd.rs/) for managing the app's state and [mmkv](https://github.com/mrousavy/react-native-mmkv?tab=readme-ov-file) for storage purposes. State and storage logic should be organized within this folder, making it easier to manage and scale the app's state. You can import them from the `@app/store` folder.
+  - `types`: This folder is for TypeScript types used throughout the app. Boilerplate uses this folder to define and organize TypeScript types, ensuring that types are consistent and easy to maintain. Types should be organized by feature or module and can be imported from the `@app/types` folder.
+  - `utils`: This folder is for utility functions used in the app. Boilerplate uses this folder for functions that provide common functionality and are used across multiple files. Utility functions should be organized logically within this folder and can be imported from the `@app/utils` folder.
+- `App.tsx`: This file is the main file of the app. Boilerplate is using this file for configuring the app and context providers. You can find more examples in the `src/App.tsx` file.
