@@ -1,10 +1,15 @@
 import { View, Text } from "react-native";
 import React from "react";
 
+import { useTranslation } from "@app/hooks";
+
+const SCOPE = "screens.Login";
+
 const Login = () => {
+  const { t } = useTranslation();
   return (
     <View>
-      <Text>Login</Text>
+      <Text>{t("labels.helloWorld", SCOPE)}</Text>
     </View>
   );
 };

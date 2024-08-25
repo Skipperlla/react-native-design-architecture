@@ -13,6 +13,9 @@ This project is a React Native boilerplate with some extra features pre-configur
       - [iOS](#ios)
   - [Features](#features)
       - [Navigation](#navigation)
+      - [Push Notifications](#push-notifications)
+      - [Authentication Structure](#authentication-structure)
+      - [Internationalization](#internationalization)
 
 ## Environment Variables
 
@@ -125,3 +128,69 @@ type RootStackParamList = {
 ```
 
 > The name of the page should be given as `key` for `value`, if the page takes parameters, the parameters should be entered, if it does not take any parameters, undefined can be given.
+
+---
+
+#### Push Notifications
+
+**1.Requesting Push Notification Permission**
+
+The first step to using push notifications with Expo is to request permission from the device, i.e., the user. You can do this by using the `registerForPushNotificationsAsync` function in the `src/hooks/usePushNotification.ts` file.
+
+**2.Setting Up Push Notifications with Expo**
+
+Since we're using Expo, there's not much configuration needed for push notifications. Instead, a simple setup is required as outlined on Expo's official site. Before you start the setup, make sure you're logged in with `eas login`. After logging into EAS, follow the steps [here](https://docs.expo.dev/push-notifications/push-notifications-setup/#get-credentials-for-development-builds) to upload the required files to the EAS panel.
+
+**3.Testing**
+
+Once you've completed all these steps, you can send test notifications to your devices using the [Notification Tool](https://expo.dev/notifications).
+
+---
+
+#### Authentication Structure
+
+This configuration is based on two main states within `useAuthStore`: `isLoggedIn` and `user`. `isLoggedIn` determines whether the user is logged in, while `user` holds the user's credentials. These two states are used throughout the application to manage user sessions and control page navigation.
+
+**1. Storing Credentials**
+
+When a user logs in, their credentials and session status are saved. This process typically occurs after the user successfully logs in. The response data from the login process is stored as user credentials, and the session status is updated. This information is necessary for displaying user-specific content throughout the application.
+
+**2. Page Navigation and Screen Display**
+
+The user's session status determines which pages are displayed. The application shows two types of page groups based on the login status:
+
+- **Pages Accessible Without Logging In**: If `isLoggedIn` is `false`, the user is only shown pages that can be accessed without logging in. These pages typically include login, registration, or general information pages.
+
+- **Pages Accessible After Logging In**: If `isLoggedIn` is `true`, the user is shown pages that are only accessible after logging in. These pages offer user-specific content and functionality.
+
+**3. Removing Credentials**
+
+When a user wishes to log out, the session information is cleared, and the session status is reset. This process typically occurs when the user logs out. Once the session information is removed, all states are reset. This ensures that the user logs out securely and the application returns to its initial state.
+
+**4. Summary**
+
+- **State Management**: `useAuthStore` manages the `isLoggedIn` and `user` states and makes this data available throughout the application.
+- **Routing**: The application's routing logic ensures that different pages are displayed based on the `isLoggedIn` state.
+- **Session Management**: User credentials and session status are updated or reset during login and logout processes.
+
+This structure securely manages user sessions and optimizes the user experience based on the session status.
+
+---
+
+#### Internationalization
+
+The internationalization structure is built on the `useTranslation` hook and this structure is using the `i18n-js` package in the background. And in this approach, we are using the locale files in the `src/lang` folder and those files are in the `JSON` format. We have have two steps for using internationalization.
+
+**1. Adding the locale files**
+
+You need to add the locale files to the `src/lang` folder. The file name should be in the `en.json` format. You can find an example in the `src/lang/en.json` file. And these JSON files should be the `key-value` structure the same as a folder structure.
+And we have a couple of key groups for components. These groups are:
+
+- `labels`: This group is for the texts, descriptions, messages and titles of the components.
+- `actions`: This group is for the buttons, links and other actions of the components.
+
+**2. Using the localization in components**
+
+You can use localization in components with the `useTranslation` hook. This hook has a function `t` and this function is to get the localized text. And this function has three parameters. The first one is the `key` of the text, the second one is the `scope` of the text and the last one is `options` and this parameter usually has scope and variables. You can find an example in `src/screens/Login/index.tsx`.
+
+---

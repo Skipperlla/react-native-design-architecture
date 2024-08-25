@@ -1,0 +1,32 @@
+{
+  "hooks": {
+    "usePushNotification": {
+      "labels": {
+        "title": "Permission Required",
+        "description": "Please allow access to your notifications to use this feature."
+      },
+      "actions": {
+        "allow": "Allow",
+        "deny": "Deny"
+      }
+    },
+    "useControlAppVersion": {
+      "labels": {
+        "title": "Update Required",
+        "description": "We've released a new version. Please update it to continue using our application."
+      },
+      "actions": {
+        "update": "Update"
+      }
+    }
+  },
+  "components": {},
+  "screens": {
+    "Login": {
+      "labels": {
+        "helloWorld": "Hello World"
+      }
+    }
+  },
+  "navigation": {}
+}
