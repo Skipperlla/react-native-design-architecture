@@ -1,0 +1,27 @@
+{
+  "extends": "expo/tsconfig.base",
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "compilerOptions": {
+    "allowJs": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "isolatedModules": true,
+    "lib": ["dom", "dom.iterable", "ES2022"],
+    "noEmit": true,
+    "strict": true,
+    "target": "ES2022",
+    "skipLibCheck": true,
+    "resolveJsonModule": true,
+    "baseUrl": "./src",
+    "module": "esnext",
+    "moduleResolution": "Bundler",
+    "moduleDetection": "force",
+    "jsx": "preserve",
+    "incremental": true,
+    "noUncheckedIndexedAccess": true,
+    "paths": {
+      "@app/*": ["*"]
+    }
+  },
+  "include": ["**/*.ts", "**/*.tsx", "src/types/expo-env.d.ts"]
+}
