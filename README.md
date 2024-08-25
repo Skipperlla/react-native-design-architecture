@@ -45,7 +45,7 @@ This project is a React Native boilerplate with some extra features pre-configur
         - [**Testing with Maestro**](#testing-with-maestro)
       - [Custom Bottom Sheet with @gorhom/bottom-sheet](#custom-bottom-sheet-with-gorhombottom-sheet)
         - [Overview](#overview)
-        - [`OptionsPortal`](#optionsportal)
+        - [`AppModal`](#appmodal)
         - [`present(id: string)`](#presentid-string)
         - [`dismiss()`](#dismiss)
         - [`PORTAL_ID`](#portal_id)
@@ -540,15 +540,15 @@ export default function SettingsScreen() {
 
 ##### Overview
 
-This document provides a brief explanation of the `OptionsModal` component and its usage in a React Native application. The example demonstrates how to use the `present` and `dismiss` functions to control the visibility of a modal, which is associated with an `OptionsPortal`.
+This document provides a brief explanation of the `OptionsModal` component and its usage in a React Native application. The example demonstrates how to use the `present` and `dismiss` functions to control the visibility of a modal, which is associated with an `AppModal`.
 
-##### `OptionsPortal`
+##### `AppModal`
 
-`OptionsPortal` is a component that serves as a container for rendering the modal content. It links the modal's UI to a specific ID, enabling it to be controlled via `present` and `dismiss` functions.
+`AppModal` is a component that serves as a container for rendering the modal content. It links the modal's UI to a specific ID, enabling it to be controlled via `present` and `dismiss` functions.
 
 ##### `present(id: string)`
 
-The `present` function is used to display the modal. It takes an `id` as an argument, which corresponds to the ID of the `OptionsPortal`. This ID ensures that the correct modal is presented when multiple modals are used in an application.
+The `present` function is used to display the modal. It takes an `id` as an argument, which corresponds to the ID of the `AppModal`. This ID ensures that the correct modal is presented when multiple modals are used in an application.
 
 ##### `dismiss()`
 
@@ -556,7 +556,7 @@ The `dismiss` function hides the currently presented modal. It can be called wit
 
 ##### `PORTAL_ID`
 
-`PORTAL_ID` is a constant string that uniquely identifies the `OptionsPortal` instance. It links the `present` and `dismiss` functions to the specific modal that needs to be controlled.
+`PORTAL_ID` is a constant string that uniquely identifies the `AppModal` instance. It links the `present` and `dismiss` functions to the specific modal that needs to be controlled.
 
 ##### Example Usage
 
@@ -577,9 +577,9 @@ const App = () => {
       <TouchableOpacity onPress={dismiss}>
         <Text>Close</Text>
       </TouchableOpacity>
-      <OptionsPortal id={PORTAL_ID}>
+      <AppModal id={PORTAL_ID}>
         <View />
-      </OptionsPortal>
+      </AppModal>
     </>
   );
 };

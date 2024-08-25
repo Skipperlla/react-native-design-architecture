@@ -8,11 +8,11 @@ type Props = {
   id: string;
 } & PortalProps;
 
-const OptionsPortal = ({ id, ...rest }: Props) => {
+const AppModal = ({ id, ...rest }: Props) => {
   const optionsModal = useOptionsModal();
 
   if (optionsModal.currentOptionsId !== id) return null;
   return <Portal hostName="options" {...rest} />;
 };
 
-export default OptionsPortal;
+export default AppModal;
