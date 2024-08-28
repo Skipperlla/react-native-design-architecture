@@ -15,15 +15,11 @@
 #             echo "You must provide an EXPO_TOKEN secret linked to this project's Expo account in this repo's secrets. Learn more: https://docs.expo.dev/eas-update/github-actions"
 #             exit 1
 #           fi
-
 #       - name: 🏗 Setup repository
 #         uses: actions/checkout@v3
 
 #       - name: 🏗 Setup Node
-#         uses: actions/setup-node@v3
-#         with:
-#           node-version: 18.x
-#           cache: yarn
+#         uses: ./.github/actions/setup
 
 #       - name: 🏗 Setup EAS
 #         uses: expo/expo-github-action@v8
