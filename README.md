@@ -141,7 +141,7 @@ List of the variables:
 
 Explanation of the folders:
 
-- `__tests__`: This folder is for tests. For React Native, we recommend using [Maestro](https://maestro.mobile.dev) as it simplifies UI testing and makes it easier to automate and validate user interactions.
+- `.maestro`: This folder is for tests. For React Native, we recommend using [Maestro](https://maestro.mobile.dev) as it simplifies UI testing and makes it easier to automate and validate user interactions.
 - `credentials`: This folder is for the credentials of the app. Boilerplate is using this folder for the credentials that are used in the whole app. You can find more examples in the `credentials` folder.
 - `src`: This folder is for the source code of the app.
   - `assets`: This folder is for the assets of the app. Generally, boilerplate is using this folder for images, locale files, and other types of assets.
