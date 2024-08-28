@@ -7,8 +7,8 @@
     "android": "expo run:android",
     "ios": "expo run:ios",
     "web": "expo start --web",
-    "check:lint": "eslint .",
-    "check:types": "tsc --noEmit",
+    "check:lint": "eslint \"**/*.{js,ts,tsx}\"",
+    "check:types": "tsc",
     "check": "npm run check:lint && npm run check:types",
     "lint": "eslint --fix",
     "prettier": "prettier --write",
@@ -21,7 +21,8 @@
     "clean:folders": "rm -rf android ios",
     "submit:ios": "eas submit -p ios",
     "submit:android": "eas submit -p android",
-    "test:e2e": "maestro test"
+    "test:maestro": "maestro test",
+    "test:maestro:all": "maestro test .maestro"
   },
   "dependencies": {
     "@amplitude/analytics-react-native": "^1.4.9",
@@ -50,6 +51,7 @@
     "expo-notifications": "~0.28.16",
     "expo-splash-screen": "~0.27.5",
     "expo-status-bar": "~1.12.1",
+    "expo-system-ui": "~3.0.7",
     "expo-updates": "~0.25.24",
     "i18n-js": "^4.4.3",
     "nativewind": "^2.0.11",

@@ -1,20 +1,25 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, TouchableOpacity, Alert } from 'react-native';
 
-import { api } from '@app/hooks';
+import { useTranslation } from '@app/hooks';
+
+const SCOPE = 'screens.Login';
 
 const Home = () => {
-  const { mutate } = api.useCreatePrediction({});
+  const { t } = useTranslation();
+  // const { mutate } = api.useCreatePrediction({});
 
   return (
-    <View>
-      <Text
+    <View className="flex-1 items-center justify-center">
+      <TouchableOpacity
+        accessibilityRole="button"
+        testID="Test Button"
         onPress={() => {
-          mutate({});
+          Alert.alert('Hello World');
         }}
       >
-        Home
-      </Text>
+        <Text>{t('labels.helloWorld', SCOPE)}</Text>
+      </TouchableOpacity>
     </View>
   );
 };

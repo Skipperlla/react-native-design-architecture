@@ -8,5 +8,5 @@ export { default as useRemoteConfig } from './useRemoteConfig';
 export { default as useControlAppVersion } from './useControlAppVersion';
 export { default as useInvalidateQuery } from './useInvalidateQuery';
 export { default as useAnalytics } from './useAnalytics';
-export { default as useOptionsModal } from './useOptionsModal';
+export { default as useAppModal } from './useAppModal';
 export { default as api } from './api';

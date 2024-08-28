@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, TouchableOpacity, Alert } from 'react-native';
 
 import { api, useTranslation } from '@app/hooks';
 
@@ -11,8 +11,16 @@ const Login = () => {
   console.log(data);
 
   return (
-    <View>
-      <Text>{t('labels.helloWorld', SCOPE)}</Text>
+    <View className="flex-1 items-center justify-center">
+      <TouchableOpacity
+        accessibilityRole="button"
+        testID="Test Button"
+        onPress={() => {
+          Alert.alert('Hello World');
+        }}
+      >
+        <Text>{t('labels.helloWorld', SCOPE)}</Text>
+      </TouchableOpacity>
     </View>
   );
 };

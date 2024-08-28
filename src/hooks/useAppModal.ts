@@ -7,7 +7,7 @@ import { ModalRefsContext } from '@app/context/ModalRefsProvider';
 type SnapPoints = BottomSheetProps['snapPoints'];
 const initialSnapPoints: SnapPoints = [200];
 
-const useOptionsModal = () => {
+const useAppModal = () => {
   const {
     optionModalRef,
     setCurrentOptionsId,
@@ -17,7 +17,7 @@ const useOptionsModal = () => {
   } = useContext(ModalRefsContext)!;
 
   if (!optionModalRef.current && !optionModalRef) {
-    throw new Error('useOptionsModal must be used within a ModalRefsProvider');
+    throw new Error('useAppModal must be used within a ModalRefsProvider');
   }
 
   const open = useCallback(
@@ -45,4 +45,4 @@ const useOptionsModal = () => {
   };
 };
 
-export default useOptionsModal;
+export default useAppModal;

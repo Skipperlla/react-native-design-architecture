@@ -26,6 +26,11 @@
       "labels": {
         "helloWorld": "Hello World"
       }
+    },
+    "Home": {
+      "labels": {
+        "helloWorld": "Hello World"
+      }
     }
   },
   "navigation": {}

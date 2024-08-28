@@ -1,11 +1,11 @@
 # React Native Design Architecture Boilerplate
 
-This project is a React Native boilerplate with some extra features pre-configured. It also uses [TypeScript](https://www.typescriptlang.org/) as the primary language. Added features that are useful for most of the projects
-
-## Index
+This project is a React Native Design Architecture Boilerplate with some extra features pre-configured. It also uses [TypeScript](https://www.typescriptlang.org/) as the primary language. Added features that are useful for most of the projects
 
 - [React Native Design Architecture Boilerplate](#react-native-design-architecture-boilerplate)
-  - [Index](#index)
+  - [Getting Started](#getting-started)
+    - [Prerequisites](#prerequisites)
+    - [Installation](#installation)
   - [Environment Variables](#environment-variables)
   - [Folder Structure](#folder-structure)
   - [EAS Configuration](#eas-configuration)
@@ -56,13 +56,52 @@ This project is a React Native boilerplate with some extra features pre-configur
         - [**2. Commitlint and Prettier Settings**](#2-commitlint-and-prettier-settings)
         - [**3. ESLint Configuration**](#3-eslint-configuration)
         - [**4. EditorConfig Settings**](#4-editorconfig-settings)
+      - [Custom Hooks](#custom-hooks)
+        - [**useHapticFeedBack**](#usehapticfeedback)
+        - [**useImagePicker**](#useimagepicker)
+        - [**useMediaPicker**](#usemediapicker)
+        - [**useCameraRoll**](#usecameraroll)
+        - [**useGeolocation**](#usegeolocation)
+      - [CI/CD pipeline](#cicd-pipeline)
+        - [**EAS Preview**](#eas-preview)
+        - [**Continuous Integration (CI) Workflow**](#continuous-integration-ci-workflow)
   - [Why Choose MMKV for Key/Value Storage in React Native?](#why-choose-mmkv-for-keyvalue-storage-in-react-native)
     - [Performance Benchmark](#performance-benchmark)
     - [Key Advantages of MMKV](#key-advantages-of-mmkv)
 
+## Getting Started
+
+### Prerequisites
+
+Ensure you have followed the [React Native CLI Quickstart](https://reactnative.dev/docs/environment-setup).
+
+### Installation
+
+1. **Create New Repo**: On GitHub, create a new repository and select `react-native-design-architecture-boilerplate` as the template.
+2. **Clone Repo**: Clone your new repository.
+
+```sh
+  git clone https://github.com/your-username/your-repo-name.git
+  cd your-repo-name
+```
+
+3. **Install Dependencies:**: Run `yarn install` to install the project dependencies.
+
+```sh
+  yarn install
+```
+
+4. **Run the Project:**: Run `yarn start` to start the project.
+
+```sh
+  yarn start
+```
+
 ## Environment Variables
 
 You can create an `.env` file in the root directory of the project. The contents of this file should be the same as the `.env.example` file. You can change the values of the variables in this file. These variables in the project can be accessed with the syntax `import { VARIABLE_NAME } from "@env"`.
+
+> if you want to type your newly added variable, you can add the variable name you just added to the `types/env.d.ts` file.
 
 We can using [react-native-dotenv](https://github.com/goatandsheep/react-native-dotenv) package for this.
 
@@ -77,26 +116,27 @@ List of the variables:
 ## Folder Structure
 
 ```
-├── __tests__/
-├── android/
-├── ios/
+
+├── .maestro/
+├── credentials/
 ├── src/
-│   ├── api/
-│   ├── assets/
-│   │   ├── images/
-│   │   ├── fonts/
-│   ├── components/
-│   ├── constants/
-│   ├── context/
-│   ├── hooks/
-│   │   ├── api/
-│   ├── lang/
-│   ├── navigation/
-│   ├── screens/
-│   ├── store/
-│   ├── types/
-│   ├── utils/
+│ ├── api/
+│ ├── assets/
+│ │ ├── images/
+│ │ ├── fonts/
+│ ├── components/
+│ ├── constants/
+│ ├── context/
+│ ├── hooks/
+│ │ ├── api/
+│ ├── lang/
+│ ├── navigation/
+│ ├── screens/
+│ ├── store/
+│ ├── types/
+│ ├── utils/
 ├── App.tsx
+
 ```
 
 Explanation of the folders:
@@ -123,7 +163,25 @@ Explanation of the folders:
 
 ## EAS Configuration
 
-Before running the application for the first time, remember to configure your project with EAS using the **`eas build:configure`** command. This step is necessary for your application to run correctly on the EAS platform.
+After you create your project, go and change the package names in the `app.json` file, both for iOS and Android respectively. You can find more information about this in the [documentation](https://docs.expo.dev/build-reference/).
+
+Because we have already have native dependencies from start, the app can not work with Expo Go, thus we need a development build to work with it.
+
+We have already have a development profile for this. You can find it in the `eas.json` file.
+
+Run the following command to build the app for development. Follow the instructions
+
+```bash
+eas build --profile development
+```
+
+Once the build is complete, you can find the `.apk` and `.ipa` files in the main directory. You can find more information about this in [documentation](https://docs.expo.dev/build-reference/).
+
+Remove comments from the `eas-preview.yml` file and make it active.
+
+You'll need a secret named `EXPO_TOKEN`, you can find more information about this in the [documentation](https://docs.expo.dev/eas-update/github-actions/).
+
+Then you can use the `eas-preview` workflow to test the app.
 
 ## Firebase Configuration
 
@@ -143,11 +201,11 @@ You need to replace your `GoogleService-Info.plist` file inside the `credentials
 
 React Navigation allows you to navigate between screens in your app. In this example, a navigation reference is created using `createNavigationContainerRef`, and this reference is used to navigate between screens.
 
-**1.Updating PAGES file**
+**Updating PAGES file**
 
 every time a new page is added, it should be added to `src/constants/pages` and called that everywhere
 
-**2.Usage Example**
+**Usage Example**
 
 ```typescript
 import { useAppNavigation } from '@app/hooks';
@@ -158,7 +216,7 @@ navigation.navigate(PAGES.EDITOR);
 
 In this example, the user is navigated to the `PAGES.EDITOR` screen with the `imageUrl` and `id` parameters.
 
-**3.Updating RootStackParamList**
+**Updating RootStackParamList**
 
 Whenever you add a new screen, make sure to update the `RootStackParamList` with the appropriate key and value types for that screen. This ensures type safety in navigation operations.
 
@@ -213,7 +271,7 @@ When a user wishes to log out, the session information is cleared, and the sessi
 **4. Summary**
 
 - **State Management**: `useAuthStore` manages the `isLoggedIn` and `user` states and makes this data available throughout the application.
-- **Routing**: The application's routing logic ensures that different pages are displayed based on the `isLoggedIn` state.
+- **Routing**: The application's routing logic ensures that different pages are displayed based on the `isLoggedIn` state. More information `src/navigation/index.tsx`
 - **Session Management**: User credentials and session status are updated or reset during login and logout processes.
 
 This structure securely manages user sessions and optimizes the user experience based on the session status.
@@ -312,7 +370,7 @@ This is the most important feature of the boilerplate. Because sometimes we need
 
 #### useAnalytics
 
-This **`logEvent`** function is purposed to log an event to Firebase Analytics. It takes three parameters:
+This **`logEvent`** function is purposed to log an event to Amplitude. It takes three parameters:
 
 - **`screenName`**: This specifies the name of the screen where the event is logged.
 - **`elementName`**: This specifies the name of the relevant element in the UI (e.g., a button, a link, etc.)
@@ -328,6 +386,8 @@ logEvent('Created_Artwork', 'create', 'Artwork', {
   style: 'Background Remover',
 });
 ```
+
+> .env.example folder is `AMPLITUDE_API_KEY` value. Don't forget to fill these values.
 
 ---
 
@@ -379,7 +439,7 @@ To add new SVGs to your project, follow these steps:
 1. Visit the [SVGPS collection page](https://svgps.app/collection).
 2. Drag and drop the SVGs you want to add into the collection area.
 3. Export the collection as a JSON file.
-4. Add the exported JSON file to your project in the `assets/icons.json` directory.
+4. Add the exported JSON file to your project in the `src/assets/icons.json` directory.
 
 This ensures all your icons are properly managed and organized.
 
@@ -536,6 +596,8 @@ export default function SettingsScreen() {
 
 - **test:e2e**: `maestro test ./path`
   - Runs end-to-end tests using Maestro.
+- **test:maestro:all**: `maestro test .maestro`
+  - Runs all tests at once using Maestro.
 
 ---
 
@@ -543,7 +605,7 @@ export default function SettingsScreen() {
 
 ##### Overview
 
-This document provides a brief explanation of the `OptionsModal` component and its usage in a React Native application. The example demonstrates how to use the `present` and `dismiss` functions to control the visibility of a modal, which is associated with an `AppModal`.
+This document provides a brief explanation of the `AppModal` component and its usage in a React Native application. The example demonstrates how to use the `present` and `dismiss` functions to control the visibility of a modal, which is associated with an `AppModal`.
 
 ##### `AppModal`
 
@@ -564,7 +626,7 @@ The `dismiss` function hides the currently presented modal. It can be called wit
 ##### Example Usage
 
 ```typescript
-const { dismiss, present } = useOptionsModal();
+const { dismiss, present } = useAppModal();
 const PORTAL_ID = 'BackgroundRemoverImagePicker';
 
 const App = () => {
@@ -594,21 +656,23 @@ const App = () => {
 
 You can E2E test your app with [Maestro](https://maestro.mobile.dev/)
 
-We have a sample Login test in `__tests__/.maestro/login/Login.yaml`
+We have a sample Home test in `.maestro/flows/home/login_test.yaml`
 
-First need to edit the `.env` file on the root of the project and use your maestro env values with `MAESTRO_` prefix, you can follow the `.env.example` file
-
-Whenever you add a new e2e test category, you have to add that subfolder to `__tests__/.maestro/config.yaml` file as follows.
+Whenever you add a new e2e test category run this command:
 
 ```
-flows:
-  - 'login/*'
-  - 'YOUR_NEW_SCREEN/*'
+yarn test:maestro:all
 ```
 
-Then you can add your E2E test flows to `__tests__/.maestro/YOUR_NEW_SCREEN` folder.
+> this command runs all tests at the same time
 
-Then, you can run your login flow test with `yarn test:e2e` command.
+Then you can add your E2E test flows to `.maestro/flows/YOUR_NEW_SCREEN` folder.
+
+If you want to run only one test, you can use this command:
+
+```
+yarn test:maestro `PATH`
+```
 
 ---
 
@@ -664,6 +728,119 @@ EditorConfig helps maintain consistent coding styles across different editors an
 - **Character Set:** `utf-8`.
 - **Trim Trailing Whitespace:** Removes unnecessary whitespace at the end of lines.
 - **Insert Final Newline:** Ensures a newline is added at the end of the file.
+
+---
+
+#### Custom Hooks
+
+##### **useHapticFeedBack**
+
+`useHapticFeedback` is a hook that triggers haptic feedback using Expo Haptics.
+
+**Usage**
+
+```javascript
+import { useHapticFeedback } from '@app/hooks';
+
+const onHapticFeedback = useHapticFeedback();
+
+onHapticFeedback('light'); // Triggers a light haptic feedback
+```
+
+For more details, check out the [gist here](https://gist.github.com/Skipperlla/36b9991768c99e3afceb363b382e0671)
+
+##### **useImagePicker**
+
+`useImagePicker` is a hook that simplifies the process of picking images from the user's library or capturing photos using the camera. It handles permission requests and provides functions for both image picking and camera usage.
+
+**Usage**
+
+```javascript
+import { useImagePicker } from '@app/hooks';
+
+const { onImagePicker, onCamera } = useImagePicker();
+
+// Example usage
+const image = await onImagePicker(); // Opens image library
+const photo = await onCamera(); // Opens camera to take a photo
+```
+
+For more details, check out the [gist here](https://gist.github.com/Skipperlla/b8c119d9d95ac0205420fcdfdd777293)
+
+---
+
+##### **useMediaPicker**
+
+`useMediaPicker` is a hook that helps in fetching the recent photos from the user's media library. It handles permission checks and automatically updates the assets whenever new media is added to the library.
+
+**Usage**
+
+```javascript
+import useMediaPicker from '@app/hooks';
+
+const { onMediaLibrary } = useMediaPicker();
+
+// Example usage
+await onMediaLibrary(); // Fetches the most recent 20 photos from the media library
+```
+
+For more details, check out the [gist here](https://gist.github.com/Skipperlla/418ec3ae546368f8b9956f9613967a84)
+
+---
+
+##### **useCameraRoll**
+
+`useCameraRoll` is a hook that provides functions to save images to the device's media library, either directly from a URL or from a base64 string. It also includes a utility to convert an image URL to a base64 string.
+
+**Usage**
+
+```javascript
+import useCameraRoll from '@app/hooks';
+
+const { saveImageToLibrary, saveAssetFromWatermark, imageToBase64 } =
+  useCameraRoll();
+
+// Example usage
+await saveImageToLibrary('https://example.com/image.jpg'); // Saves image to the media library
+const base64Image = await imageToBase64('https://example.com/image.jpg'); // Converts image to base64
+```
+
+For more details, check out the [gist here](https://gist.github.com/Skipperlla/22718ac41ad1b0045f6d87e2443cd9a2)
+
+---
+
+##### **useGeolocation**
+
+`useGeolocation` is a hook that retrieves the user's current location using Expo's Location API. It handles permission checks for foreground location access.
+
+**Usage**
+
+```javascript
+import useGeolocation from './path-to-hook/useGeolocation';
+
+const { onForeground } = useGeolocation();
+
+// Example usage
+const location = await onForeground(); // Retrieves the user's current location
+```
+
+For more details, check out the [gist here](https://gist.github.com/Skipperlla/67d2cdd666e491a4e8ef0eaa40246497)
+
+---
+
+#### CI/CD pipeline
+
+##### **EAS Preview**
+
+This GitHub Actions workflow automatically creates a "Preview" version of your app using Expo Application Services (EAS) whenever a pull request is opened or updated. The workflow checks for necessary permissions, sets up Node.js and EAS tools, installs dependencies, and runs eas update --auto to generate the preview build.
+
+For more details, you can refer to the .github/workflows/eas-preview.yml file.
+
+##### **Continuous Integration (CI) Workflow**
+
+This GitHub Actions workflow runs linting and type checking on your codebase whenever there is a push to the `main` branch, a pull request to the `main` branch, or when a merge group requests checks.
+
+For more details, you can refer to the `.github/workflows/ci.yml` file.
 
 ---
 

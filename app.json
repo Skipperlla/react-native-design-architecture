@@ -5,7 +5,7 @@
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
-    "userInterfaceStyle": "light",
+    "userInterfaceStyle": "automatic",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
@@ -14,7 +14,7 @@
     "scheme": "mychat",
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.StickerSmash",
+      "bundleIdentifier": "com.designArchitecture",
       "googleServicesFile": "./credentials/GoogleService-Info.plist"
     },
     "android": {
@@ -23,12 +23,13 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.StickerSmash"
+      "package": "com.designArchitecture"
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
     "plugins": [
+      "@react-native-firebase/app",
       "@react-native-firebase/crashlytics",
       "expo-localization",
       [

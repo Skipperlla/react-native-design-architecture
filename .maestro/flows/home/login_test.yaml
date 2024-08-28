@@ -1,0 +1,7 @@
+appId: com.designArchitecture
+---
+- launchApp
+- tapOn:
+    id: 'Test Button'
+- assertVisible:
+    text: 'Hello World'
