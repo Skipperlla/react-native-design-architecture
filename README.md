@@ -533,11 +533,11 @@ export default function SettingsScreen() {
 
 ##### **Linting and Type Checking**
 
-- **check:lint**: `eslint .`
+- **check:lint**: `eslint \"**/*.{js,ts,tsx}\"`
 
   - Runs the linter across all files in the project to check for code style and formatting issues.
 
-- **check:types**: `tsc --noEmit`
+- **check:types**: `tsc`
 
   - Checks for type errors in TypeScript files without emitting any compiled output.
 
