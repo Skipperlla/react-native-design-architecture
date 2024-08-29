@@ -838,7 +838,7 @@ For more details, you can refer to the .github/workflows/eas-preview.yml file.
 
 ##### **Continuous Integration (CI) Workflow**
 
-This GitHub Actions workflow runs linting and type checking on your codebase whenever there is a push to the `main` branch, a pull request to the `main` branch, or when a merge group requests checks.
+This GitHub Actions workflow runs linting and type checking on your codebase whenever there is a pull request to the `any` branch.
 
 For more details, you can refer to the `.github/workflows/ci.yml` file.
 
