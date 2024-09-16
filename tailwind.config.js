@@ -27,7 +27,7 @@ function withNegative(object) {
 }
 
 module.exports = {
-  darkMode: 'class',
+  darkMode: 'selector',
   content: [
     './App.{js,jsx,ts,tsx}',
     './src/components/**/*.{js,jsx,ts,tsx}',

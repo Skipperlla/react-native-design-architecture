@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { Appearance } from 'react-native';
 import * as amplitude from '@amplitude/analytics-react-native';
 import crashlytics from '@react-native-firebase/crashlytics';
+import { useColorScheme } from 'nativewind';
 
 import { useAppStore } from '@app/store';
 import { AMPLITUDE_API_KEY } from '@env';
@@ -11,7 +12,8 @@ void crashlytics().setCrashlyticsCollectionEnabled(!__DEV__);
 amplitude.init(AMPLITUDE_API_KEY);
 
 const Initializing = () => {
-  const { setTheme } = useAppStore();
+  const { setTheme, defaultTheme } = useAppStore();
+  const { setColorScheme } = useColorScheme();
 
   useEffect(() => {
     void crashlytics().setUserId(
@@ -21,8 +23,16 @@ const Initializing = () => {
 
   useEffect(() => {
     const subscription = Appearance.addChangeListener(({ colorScheme }) => {
+      if (!colorScheme) {
+        return;
+      }
       setTheme(colorScheme);
+      setColorScheme(colorScheme);
     });
+    if (!defaultTheme) {
+      return;
+    }
+    setColorScheme(defaultTheme);
 
     return () => {
       subscription.remove();

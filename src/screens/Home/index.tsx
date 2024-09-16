@@ -1,24 +1,28 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, Alert } from 'react-native';
+import { View, Text, TouchableOpacity } from 'react-native';
+import { useColorScheme } from 'nativewind';
 
-import { useTranslation } from '@app/hooks';
-
-const SCOPE = 'screens.Login';
+import { useAppStore } from '@app/store';
 
 const Home = () => {
-  const { t } = useTranslation();
+  const { setTheme, isDarkMode } = useAppStore();
+  const { toggleColorScheme, colorScheme } = useColorScheme();
   // const { mutate } = api.useCreatePrediction({});
 
   return (
-    <View className="flex-1 items-center justify-center">
+    <View className="flex-1 items-center justify-center bg-slate-200 dark:bg-slate-900">
       <TouchableOpacity
         accessibilityRole="button"
         testID="Test Button"
         onPress={() => {
-          Alert.alert('Hello World');
+          setTheme(isDarkMode ? 'light' : 'dark');
+
+          toggleColorScheme();
         }}
       >
-        <Text>{t('labels.helloWorld', SCOPE)}</Text>
+        <Text className="text-red-500 dark:text-white">
+          {`Try clicking me! ${colorScheme === 'dark' ? '🌙' : '🌞'}`}
+        </Text>
       </TouchableOpacity>
     </View>
   );

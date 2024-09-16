@@ -19,7 +19,7 @@ const Login = () => {
           Alert.alert('Hello World');
         }}
       >
-        <Text>{t('labels.helloWorld', SCOPE)}</Text>
+        <Text className="text-red-500">{t('labels.helloWorld', SCOPE)}</Text>
       </TouchableOpacity>
     </View>
   );
