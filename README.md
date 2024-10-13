@@ -163,7 +163,7 @@ Explanation of the folders:
 
 ## EAS Configuration
 
-After you create your project, go and change the package names in the `app.json` file, both for iOS and Android respectively. You can find more information about this in the [documentation](https://docs.expo.dev/build-reference/).
+After you create your project, go and change the package names in the `app.json` file, both for iOS and Android respectively. You can find more information about this in the [documentation](https://docs.expo.dev/build/introduction/).
 
 Because we have already have native dependencies from start, the app can not work with Expo Go, thus we need a development build to work with it.
 
