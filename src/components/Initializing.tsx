@@ -9,10 +9,11 @@ import { AMPLITUDE_API_KEY } from '@env';
 
 //* Disable Crashlytics data collection in development mode
 void crashlytics().setCrashlyticsCollectionEnabled(!__DEV__);
+//TODO: CHANGE THIS
 amplitude.init(AMPLITUDE_API_KEY);
 
 const Initializing = () => {
-  const { setTheme, defaultTheme } = useAppStore();
+  const { setTheme } = useAppStore();
   const { setColorScheme } = useColorScheme();
 
   useEffect(() => {
@@ -29,10 +30,6 @@ const Initializing = () => {
       setTheme(colorScheme);
       setColorScheme(colorScheme);
     });
-    if (!defaultTheme) {
-      return;
-    }
-    setColorScheme(defaultTheme);
 
     return () => {
       subscription.remove();

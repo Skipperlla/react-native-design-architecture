@@ -118,7 +118,6 @@ List of the variables:
 ```
 
 ├── .maestro/
-├── credentials/
 ├── src/
 │ ├── api/
 │ ├── assets/
@@ -142,7 +141,6 @@ List of the variables:
 Explanation of the folders:
 
 - `.maestro`: This folder is for tests. For React Native, we recommend using [Maestro](https://maestro.mobile.dev) as it simplifies UI testing and makes it easier to automate and validate user interactions.
-- `credentials`: This folder is for the credentials of the app. Boilerplate is using this folder for the credentials that are used in the whole app. You can find more examples in the `credentials` folder.
 - `src`: This folder is for the source code of the app.
   - `assets`: This folder is for the assets of the app. Generally, boilerplate is using this folder for images, locale files, and other types of assets.
     - `images`: This folder is for the images of the app. Boilerplate is using this folder for the images that are used in the whole app. You can import them from the `@app/assets/images` folder.
@@ -189,11 +187,11 @@ Boilerplate use the [React Native Firebase](https://rnfirebase.io/) package for 
 
 #### Android
 
-You need to replace your `google-services.json` file inside the `credentials` folder.
+You need to replace your `google-services.json` file inside the root directory.
 
 #### iOS
 
-You need to replace your `GoogleService-Info.plist` file inside the `credentials` folder.
+You need to replace your `GoogleService-Info.plist` file inside the root directory.
 
 ## Features
 

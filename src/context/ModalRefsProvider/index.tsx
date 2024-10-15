@@ -14,7 +14,7 @@ import OptionsModal from './OptionsModal';
 
 type SnapPoints = BottomSheetProps['snapPoints'];
 
-const initialSnapPoints: SnapPoints = [200];
+const initialSnapPoints: SnapPoints = [150];
 
 type ModalRefsContextType = {
   /**

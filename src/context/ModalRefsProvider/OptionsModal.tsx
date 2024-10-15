@@ -14,6 +14,8 @@ import BottomSheet, {
 } from '@gorhom/bottom-sheet';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
+import { useAppStore } from '@app/store';
+
 export type OptionsModalHandle = {
   present: () => void;
   dismiss: () => void;
@@ -34,7 +36,8 @@ const _OptionsModal = forwardRef<OptionsModalHandle, Props>(
   ) => {
     const bottomSheetRef = useRef<BottomSheet>(null);
     const { bottom } = useSafeAreaInsets();
-    const backgroundColor = 'white';
+    const { isDarkMode } = useAppStore();
+    const backgroundColor = isDarkMode ? '#000A15' : '#FFFFFF';
 
     useImperativeHandle(ref, () => {
       return {
@@ -91,7 +94,7 @@ const _OptionsModal = forwardRef<OptionsModalHandle, Props>(
         <BottomSheetView
           style={[
             {
-              paddingBottom: bottom || 36,
+              paddingBottom: bottom || 24,
             },
             style,
           ]}

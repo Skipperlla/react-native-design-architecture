@@ -26,7 +26,7 @@ const _FastImage = ({
   const onLoadStart = useCallback(() => setOnLoad(true), []);
   const onLoadEnd = useCallback(() => setOnLoad(false), []);
 
-  if (!uri)
+  if (!uri && !rest.source)
     return (
       <View className="w-full h-full justify-center items-center">
         {/* //TODO: Change this color */}

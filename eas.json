@@ -39,6 +39,12 @@
   },
   "submit": {
     "production": {
+      "android": {
+        //TODO: CHANGE THIS
+        "serviceAccountKeyPath": "./service_account.json",
+        "track": "production"
+      },
+      //TODO: CHANGE THIS
       "ios": {
         "appleId": "",
         "ascAppId": "",

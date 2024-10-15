@@ -15,10 +15,16 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.designArchitecture",
-      "googleServicesFile": "./credentials/GoogleService-Info.plist"
+      //TODO: CHANGE THIS
+      "googleServicesFile": "./GoogleService-Info.plist"
     },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": ["**/*"],
     "android": {
-      "googleServicesFile": "./credentials/google-services.json",
+      //TODO: CHANGE THIS
+      "googleServicesFile": "./google-services.json",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
@@ -50,6 +56,12 @@
         }
       ],
       "expo-font"
-    ]
+    ],
+    "extra": {
+      "eas": {
+        //TODO: CHANGE THIS
+        "projectId": "bd3809bb-34de-405a-8a45-c2ceeef91226"
+      }
+    }
   }
 }

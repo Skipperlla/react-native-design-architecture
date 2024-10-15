@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "422315087613",
+    "project_id": "sticker-smash-4b387",
+    "storage_bucket": "sticker-smash-4b387.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:422315087613:android:ef9412e44b2933f8b51094",
+        "android_client_info": {
+          "package_name": "com.designArchitecture"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDeIdj1sSNkZFqKFkgdVed3C1ns8Jo8sSU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

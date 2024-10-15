@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>API_KEY</key>
+	<string>AIzaSyBIov9uSqYI2VFcibfcPl2yy9eAhXJ-YGc</string>
+	<key>GCM_SENDER_ID</key>
+	<string>422315087613</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.designArchitecture</string>
+	<key>PROJECT_ID</key>
+	<string>sticker-smash-4b387</string>
+	<key>STORAGE_BUCKET</key>
+	<string>sticker-smash-4b387.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:422315087613:ios:ed1a43feb453ab2db51094</string>
+</dict>
+</plist>
