@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { memo, useCallback, useState } from 'react';
 import { ActivityIndicator, View } from 'react-native';
 import FastImage, {
   FastImageProps,
@@ -45,9 +45,13 @@ const _FastImage = ({
       resizeMode={resizeMode}
       {...rest}
     >
-      {onLoad && <ActivityIndicator size="small" color="#FFA800" />}
+      {onLoad && (
+        <View className="w-full h-full items-center justify-center">
+          <ActivityIndicator size="small" color="#FFA800" />
+        </View>
+      )}
     </FastImage>
   );
 };
 
-export default _FastImage;
+export default memo(_FastImage);

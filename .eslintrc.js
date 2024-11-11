@@ -68,6 +68,8 @@ const config = {
         'pathGroupsExcludedImportTypes': [],
       },
     ],
+    '@typescript-eslint/no-explicit-any': 'error',
+    'no-console': ['warn', { allow: ['warn', 'error', 'info'] }],
   },
 };
 module.exports = config;

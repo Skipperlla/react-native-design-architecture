@@ -57,7 +57,7 @@ const usePushNotification = () => {
         projectId: Constants.expoConfig?.extra?.eas.projectId,
       });
       setExpoPushToken(token);
-      console.log('ExpoPushToken', token);
+      console.info('ExpoPushToken', token);
     } else {
       console.error('Must use physical device for Push Notifications');
     }
@@ -81,7 +81,7 @@ const usePushNotification = () => {
 
     responseListener.current =
       Notifications.addNotificationResponseReceivedListener((response) => {
-        console.log(response);
+        console.info(response);
       });
 
     return () => {

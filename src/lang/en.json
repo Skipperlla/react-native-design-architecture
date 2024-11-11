@@ -1,5 +1,24 @@
 {
   "hooks": {
+    "useImagePicker": {
+      "choose": "Choose",
+      "cancel": "Cancel",
+      "process": "Processing assets...",
+      "alert": {
+        "camera": {
+          "title": "Permission Required",
+          "description": "Please allow access to your camera to use this feature.",
+          "allow": "Allow",
+          "deny": "Deny"
+        },
+        "mediaLibrary": {
+          "title": "Permission Required",
+          "description": "Please allow access to your photos to use this feature.",
+          "allow": "Allow",
+          "deny": "Deny"
+        }
+      }
+    },
     "usePushNotification": {
       "labels": {
         "title": "Permission Required",

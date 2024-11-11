@@ -7,8 +7,11 @@ const SCOPE = 'screens.Login';
 
 const Login = () => {
   const { t } = useTranslation();
-  const { data } = api.useGetPrediction('1');
-  console.log(data);
+  const { data } = api.useGetPrediction('1', {
+    enabled: false,
+    queryKey: ['useGetPrediction', '1'],
+  });
+  console.info(data);
 
   return (
     <View className="flex-1 items-center justify-center">

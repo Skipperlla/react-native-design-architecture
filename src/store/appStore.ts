@@ -1,21 +1,26 @@
 import { Appearance, ColorSchemeName } from 'react-native';
+import { getLocales } from 'expo-localization';
 import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
 
 import mmkvStorage from './mmkv';
 
-export interface AppState {
+type State = {
   isDarkMode: boolean;
   defaultTheme: ColorSchemeName;
+  defaultLanguage: string;
+};
+type Actions = {
   setTheme: (theme: ColorSchemeName) => void;
   setLanguage: (language: string) => void;
-}
+};
 
-const useAppStore = create<AppState>()(
+const useAppStore = create<State & Actions>()(
   persist(
     (set) => ({
       isDarkMode: Appearance.getColorScheme() === 'dark',
       defaultTheme: Appearance.getColorScheme(),
+      defaultLanguage: getLocales()[0]?.languageCode ?? 'en',
 
       setTheme: (theme: ColorSchemeName) =>
         set((state) => {
@@ -34,7 +39,7 @@ const useAppStore = create<AppState>()(
         }),
     }),
     {
-      name: 'app',
+      name: 'app-store',
       storage: createJSONStorage(() => mmkvStorage),
     },
   ),

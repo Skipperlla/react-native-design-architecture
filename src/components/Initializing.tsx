@@ -1,8 +1,10 @@
-import { useEffect } from 'react';
+import { memo, useEffect } from 'react';
 import { Appearance } from 'react-native';
 import * as amplitude from '@amplitude/analytics-react-native';
 import crashlytics from '@react-native-firebase/crashlytics';
 import { useColorScheme } from 'nativewind';
+import 'dayjs/locale/tr';
+import 'dayjs/locale/en';
 
 import { useAppStore } from '@app/store';
 import { AMPLITUDE_API_KEY } from '@env';
@@ -17,6 +19,7 @@ const Initializing = () => {
   const { setColorScheme } = useColorScheme();
 
   useEffect(() => {
+    //TODO: CHANGE THIS
     void crashlytics().setUserId(
       'if the user has a unique ID, enter it in this field',
     );
@@ -39,4 +42,4 @@ const Initializing = () => {
   return null;
 };
 
-export default Initializing;
+export default memo(Initializing);
