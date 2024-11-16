@@ -292,6 +292,24 @@ And we have a couple of key groups for components. These groups are:
 
 You can use localization in components with the `useTranslation` hook. This hook has a function `t` and this function is to get the localized text. And this function has three parameters. The first one is the `key` of the text, the second one is the `scope` of the text and the last one is `options` and this parameter usually has scope and variables. You can find an example in `src/screens/Login/index.tsx`.
 
+**3. Understanding Scope**
+
+Scope refers to the grouping of text keys within the localization files. You can identify the scope in the `src/lang/en.json` file. For example:
+
+```json
+{
+  "screens": {
+    "home": {
+      "labels": {
+        "welcomeMessage": "Welcome to our app!"
+      }
+    }
+  }
+}
+```
+
+scope is => `screens.home`
+
 ---
 
 #### Analytics
