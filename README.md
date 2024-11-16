@@ -418,13 +418,13 @@ const AppStatusComponent = () => {
     onChange: (state) => console.log('App State changed to', state),
   });
 
-  return <View></View>;
+  return null;
 };
 
 export default AppStatusComponent;
 ```
 
-In this example, the **`useAppState`** hook is used with custom callbacks to log the state transitions to the console. The current app state is also displayed on the screen using a **`Text`** component.
+In this example the **`useAppState`** hook is used with custom callbacks to save state transitions to the console.
 
 ---
 
