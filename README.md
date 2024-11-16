@@ -173,7 +173,7 @@ Run the following command to build the app for development. Follow the instructi
 eas build --profile development
 ```
 
-Once the build is complete, you can find the `.apk` and `.ipa` files in the main directory. You can find more information about this in [documentation](https://docs.expo.dev/build-reference/).
+Once the build is complete, you can find the `.apk` and `.ipa` files in the main directory. You can find more information about this in [Android](https://docs.expo.dev/build-reference/apk/) and [iOS](https://docs.expo.dev/build-reference/simulators/).
 
 Remove comments from the `eas-preview.yml` file and make it active.
 
