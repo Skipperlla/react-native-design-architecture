@@ -745,7 +745,7 @@ const onHapticFeedback = useHapticFeedback();
 onHapticFeedback('light'); // Triggers a light haptic feedback
 ```
 
-For more details, check out the [gist here](https://gist.github.com/Skipperlla/36b9991768c99e3afceb363b382e0671)
+For more details, check out the [repo here](https://github.com/akescoapps/design-architecture-hooks/blob/main/useHapticFeedback.ts)
 
 ##### **useImagePicker**
 
@@ -763,7 +763,7 @@ const image = await onImagePicker(); // Opens image library
 const photo = await onCamera(); // Opens camera to take a photo
 ```
 
-For more details, check out the [gist here](https://gist.github.com/Skipperlla/b8c119d9d95ac0205420fcdfdd777293)
+For more details, check out the [repo here](https://github.com/akescoapps/design-architecture-hooks/blob/main/useImagePicker.ts)
 
 ---
 
@@ -782,7 +782,7 @@ const { onMediaLibrary } = useMediaPicker();
 await onMediaLibrary(); // Fetches the most recent 20 photos from the media library
 ```
 
-For more details, check out the [gist here](https://gist.github.com/Skipperlla/418ec3ae546368f8b9956f9613967a84)
+For more details, check out the [repo here](https://github.com/akescoapps/design-architecture-hooks/blob/main/useMediaPicker.ts)
 
 ---
 
@@ -803,7 +803,7 @@ await saveImageToLibrary('https://example.com/image.jpg'); // Saves image to the
 const base64Image = await imageToBase64('https://example.com/image.jpg'); // Converts image to base64
 ```
 
-For more details, check out the [gist here](https://gist.github.com/Skipperlla/22718ac41ad1b0045f6d87e2443cd9a2)
+For more details, check out the [repo here](https://github.com/akescoapps/design-architecture-hooks/blob/main/useCameraRoll.ts)
 
 ---
 
@@ -822,7 +822,7 @@ const { onForeground } = useGeolocation();
 const location = await onForeground(); // Retrieves the user's current location
 ```
 
-For more details, check out the [gist here](https://gist.github.com/Skipperlla/67d2cdd666e491a4e8ef0eaa40246497)
+For more details, check out the [repo here](https://github.com/akescoapps/design-architecture-hooks/blob/main/useGeolocation.ts)
 
 ---
 
