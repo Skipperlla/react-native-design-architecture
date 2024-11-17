@@ -18,6 +18,7 @@
     "build:prod:android": "eas build -p android --profile production --non-interactive --local",
     "build:dev:both": "yarn build:dev:ios && yarn build:dev:android",
     "build:prod:both": "yarn build:prod:ios && yarn build:prod:android",
+    "eas-build-pre-install": "corepack enable",
     "clean:folders": "rm -rf android ios",
     "submit:ios": "eas submit -p ios",
     "submit:android": "eas submit -p android",
